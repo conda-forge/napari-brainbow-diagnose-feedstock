@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari-brainbow-diagnose-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari-brainbow-diagnose-{{ version }}.tar.gz
   sha256: d7f126ca4c3abc47cc088a8fd6146129a708766a651214c47007f96bc56433cd
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
   script_env:
     - QT_QPA_PLATFORM=offscreen
 
 requirements:
   host:
     - pip
-    - python >=3.8,<3.11
+    - python {{ python_min }}
     - setuptools-scm
   run:
     - magicgui
@@ -27,7 +27,7 @@ requirements:
     - napari
     - numpy
     - pooch
-    - python >=3.8,<3.11
+    - python >={{ python_min }},<3.11
     - qtpy
     - scikit-image
 
@@ -39,6 +39,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose
